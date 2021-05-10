@@ -9,7 +9,6 @@ const mangaTitleElement = document.getElementById('title');
 const mangaAuthorElement = document.getElementById('author');
 const readChaptersElement = document.getElementById('read_chapters');
 const totalChaptersElement = document.getElementById('total_chapters');
-const colorElement = document.getElementById('color');
 
 const closeForm = document.getElementById('close');
 
@@ -31,11 +30,9 @@ function checkInputs() {
 // Displaying each element from the totalManga list
 function displayManga() {
 	totalManga.forEach(manga => {
-		console.log(totalManga);
 		if (!manga.displaying) {
 			const mangaDiv = document.createElement('div');
 			mangaDiv.classList.add('manga');
-			mangaDiv.style['background-color'] = manga.color;
 
 			const title = document.createElement('p');
 			mangaDiv.appendChild(title);
@@ -55,8 +52,21 @@ function displayManga() {
 			chapters.classList.add('manga-chapters');
 			chapters.textContent = `Chapters: ${manga.readChapters}/${manga.totalChapters}`;
 
+			const removeManga = document.createElement('i');
+			mangaDiv.appendChild(removeManga);
+
+			removeManga.classList.add('fas', 'fa-times');
+
+			removeManga.addEventListener('click', () => {
+				mangaContainer.removeChild(mangaDiv);
+			})
+
+			const id = totalManga.indexOf(manga);
+			mangaDiv.dataset.id = id;
+
 			mangaContainer.appendChild(mangaDiv);
 			manga.displaying = true;
+			manga.id = id;
 		}
 	});
 }
@@ -80,9 +90,8 @@ function main() {
 			const mangaAuthor = mangaAuthorElement.value;
 			const readChapters = readChaptersElement.value;
 			const totalChapters = totalChaptersElement.value;
-			const color = colorElement.value;
 
-			const newManga = new Manga(mangaTitle, mangaAuthor, readChapters, totalChapters, color);
+			const newManga = new Manga(mangaTitle, mangaAuthor, readChapters, totalChapters);
 			totalManga.push(newManga);
 			displayManga();
 
@@ -92,8 +101,4 @@ function main() {
 	});
 
 }
-
 main();
-
-
-

@@ -120,6 +120,8 @@ h2 {
 	color: white;
 	padding: 2rem;
 	height: 200px;
+	position: relative;
+	background-color: black;
 }
 
 .manga-title {
@@ -179,7 +181,7 @@ h2 {
 	background-color: black;
 }
 
-.add-form i {
+.add-form i, .manga i {
 	position: absolute;
 	right: 2.5rem;
 	top: 2rem;
@@ -187,7 +189,7 @@ h2 {
 	transition: .3s transform ease;
 }
 
-.add-form i:hover {
+.add-form i:hover, .manga i:hover {
 	transform: scale(1.25) rotate(30deg);
 }
 
