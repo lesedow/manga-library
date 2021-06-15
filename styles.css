@@ -81,7 +81,7 @@ h2 {
 	text-align: center;
 }
 
-.add {
+.open-form {
 	margin-top: 1rem;
 	padding: 1rem 4rem;
 	align-self: center;
@@ -97,7 +97,7 @@ h2 {
 	transition: background-color .2s ease, color .2s ease;
 }
 
-.add:hover {
+.open-form:hover {
 	color: white;
 	background-color: black;
 }
@@ -133,7 +133,7 @@ h2 {
 	display: block;
 }
 
-.add-form {
+.form-container {
 	z-index: 100;
 	height: 100%;
 	width: 100%;
@@ -145,7 +145,7 @@ h2 {
 	align-items: center;
 }
 
-.add-form .form {
+#add-manga {
 	width: 30%;
 	background-color: white;
 	box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
@@ -156,17 +156,17 @@ h2 {
 	position: relative;
 }
 
-.add-form label {
+#add-manga label {
 	font-weight: 400;
 }
 
-.add-form input {
+#add-manga input {
 	padding: 0.5rem;
 	margin-bottom: 2rem;
 	font-family: inherit;
 }
 
-.add-form button {
+#add-manga button {
 	padding: 1rem;
 	background-color: transparent;
 	border: 2px solid black;
@@ -176,12 +176,12 @@ h2 {
 	transition: background-color .2s ease, color .2s ease;
 }
 
-.add-form button:hover {
+#add-manga button:hover {
 	color: white;
 	background-color: black;
 }
 
-.add-form i, .manga i {
+#add-manga i, .manga i {
 	position: absolute;
 	right: 2.5rem;
 	top: 2rem;
@@ -189,7 +189,7 @@ h2 {
 	transition: .3s transform ease;
 }
 
-.add-form i:hover, .manga i:hover {
+#add-manga i:hover, .manga i:hover {
 	transform: scale(1.25) rotate(30deg);
 }
 
@@ -223,7 +223,7 @@ h2 {
 		padding: 0 2rem;
 	}
 
-	.add-form .form {
+	#add-manga {
 		width: 80%;
 	}
 
@@ -248,7 +248,7 @@ h2 {
 		font-size: 2.5rem;
 	}
 
-	.add {
+	.open-form {
 		width: 80%;
 		padding: 1.5rem 0;
 	}

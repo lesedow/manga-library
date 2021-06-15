@@ -1,104 +1,60 @@
-import { Manga } from './manga.js';
+import Manga from './manga.js';
 
-const addManga = document.getElementById('add');
-
-const addFormContainer = document.querySelector('.add-form');
-const formButton = document.getElementById('submit');
-
-const mangaTitleElement = document.getElementById('title');
-const mangaAuthorElement = document.getElementById('author');
-const readChaptersElement = document.getElementById('read_chapters');
-const totalChaptersElement = document.getElementById('total_chapters');
-
-const closeForm = document.getElementById('close');
-
-const mangaContainer = document.querySelector('.manga-container');
-const wrapper = document.querySelector('.wrapper');
-
-let totalManga = [];
-
-// Checking if the inputs are valid
-function checkInputs() {
-	if (mangaTitleElement.value.length > 0 && mangaAuthorElement.value.length > 0 && readChaptersElement.value.length > 0 && totalChaptersElement.value.length > 0) {
-		if (parseInt(readChaptersElement.value) > parseInt(totalChaptersElement.value)) {
-			return false;
-		}
-		return true;
-	}
-}
-
-// Displaying each element from the totalManga list
-function displayManga() {
-	totalManga.forEach(manga => {
-		if (!manga.displaying) {
-			const mangaDiv = document.createElement('div');
-			mangaDiv.classList.add('manga');
-
-			const title = document.createElement('p');
-			mangaDiv.appendChild(title);
-
-			title.classList.add('manga-title');
-			title.textContent = manga.title;
-
-			const author = document.createElement('span');
-			mangaDiv.appendChild(author);
-
-			author.classList.add('manga-author');
-			author.textContent = `Author: ${manga.author}`;
-
-			const chapters = document.createElement('span');
-			mangaDiv.appendChild(chapters);
-
-			chapters.classList.add('manga-chapters');
-			chapters.textContent = `Chapters: ${manga.readChapters}/${manga.totalChapters}`;
-
-			const removeManga = document.createElement('i');
-			mangaDiv.appendChild(removeManga);
-
-			removeManga.classList.add('fas', 'fa-times');
-
-			removeManga.addEventListener('click', () => {
-				mangaContainer.removeChild(mangaDiv);
-			})
-
-			const id = totalManga.indexOf(manga);
-			mangaDiv.dataset.id = id;
-
-			mangaContainer.appendChild(mangaDiv);
-			manga.displaying = true;
-			manga.id = id;
-		}
-	});
-}
-
-function main() {
-	// Closing and opening the form
-	addManga.addEventListener('click', () => {
-		addFormContainer.classList.add('show');
+const openClose = (open, close, container, wrapper) => {
+	open.addEventListener('click', () => {
+		container.classList.add('show');
 		wrapper.classList.add('blur');
 	});
 
-	closeForm.addEventListener('click', () => {
-		addFormContainer.classList.remove('show');
+	close.addEventListener('click', () => {
+		container.classList.remove('show');
 		wrapper.classList.remove('blur');
 	});
+}
+
+const getInputsValue = (inputs) => {
+	let values = {}
+	inputs.forEach(input => {
+		values[input.id] = input.value;
+	})
+	return values
+}
+
+// Checking if the inputs are valid
+const checkValues = (inputs) => {
+	return parseInt(inputs.read_chapters) > parseInt(inputs.total_chapters)
+}
+
+const main = () =>  {
+
+	// Getting all the elements we need from the DOM
+	const openForm = document.querySelector('.open-form');
+	const closeForm = document.getElementById('close');
+	const formContainer = document.querySelector('.form-container');
+	const wrapper = document.querySelector('.wrapper');
+
+	const addManga = document.getElementById('add-manga');
+	const mangaContainer = document.querySelector('.manga-container');
+	
+	// Closing and opening the form
+	openClose(openForm, closeForm, formContainer, wrapper);
 
 	// Checking if the form is submitted
-	formButton.addEventListener('click', () => {
-		if (checkInputs()) {
-			const mangaTitle = mangaTitleElement.value;
-			const mangaAuthor = mangaAuthorElement.value;
-			const readChapters = readChaptersElement.value;
-			const totalChapters = totalChaptersElement.value;
-
-			const newManga = new Manga(mangaTitle, mangaAuthor, readChapters, totalChapters);
-			totalManga.push(newManga);
-			displayManga();
-
-			addFormContainer.classList.remove('show');
-			wrapper.classList.remove('blur');
-		}
-	});
+	addManga.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const inputs = Array.from(addManga.querySelectorAll('input'));
+		const inputsValue = getInputsValue(inputs);
+	
+		// Check if the inputs are valid
+		const inputsChecked = checkValues(inputsValue);
+		console.log(inputsChecked)
+		if (!inputsChecked) {
+			// Create a new manga object
+			const newManga = new Manga(inputsValue);
+			newManga.create(mangaContainer);
+		} 
+		
+	})
 
 }
 main();

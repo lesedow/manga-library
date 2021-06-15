@@ -27,7 +27,7 @@
 				</div>
 				<div class="right-side">
 					<h2 class="jumbo-title">Get started from here</h2>
-					<button id="add" class="add">Add Manga</button>
+					<button id="add" class="open-form">Add Manga</button>
 				</div>
 			</div>
 		</div>
@@ -36,8 +36,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="add-form">
-		<div class="form">
+	<div class="form-container">
+		<form id="add-manga">
 			<i id="close" class="fas fa-times"></i>
 
 			<label for="title">Title</label>
@@ -52,8 +52,8 @@
 			<label for="max_chapters">Total Chapters</label>
 			<input max="10000" autocomplete="off" type="number" name="total_chapters" id="total_chapters" required>
 
-			<button id="submit">Add</button>
-		</div>
+			<button id="submit" type="submit">Add</button>
+		</form>
 	</div>
 	<script type="module" src="app.js"></script>
 </body>
